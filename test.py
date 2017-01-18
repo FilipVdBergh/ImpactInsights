@@ -1,13 +1,25 @@
 import impin
+import impin_plots
 
-canvas = impin.canvas()
-for i in range(2):
-    canvas.add_box(impin.IMPACT, "Box no %s" % (i+1))
-for i in range(4):
-    canvas.add_box(impin.ACTIVITIES, "Box no %s" % i)
+canvas = impin.canvas(layernames=("Impact", "Outcomes", "Results", "Activities", "Conditions"), title="Testplot")
 
-canvas.add_relationship(canvas.get_box_by_id(6), canvas.get_box_by_id(2))
+b1 = canvas.add_box("Impact",     "Goede cijfers halen")
+b2 = canvas.add_box("Outcomes", "Stof snappen")
+b3 = canvas.add_box("Results",   "Opletten")
+b4 = canvas.add_box("Results",   "Goed uitleggen")
+b5 = canvas.add_box("Activities",   "Naast de juf zitten")
 
-canvas.delete_box_by_id(3)
+canvas.add_relationship(b2, b1)
+canvas.add_relationship(b3, b2)
+canvas.add_relationship(b4, b2)
+canvas.add_relationship(b5, b4)
 
-canvas.describe()
+
+textplot = impin_plots.text_impactplot()
+canvas.plot(textplot)
+
+graphicalplot = impin_plots.pygame_impactplot(1080, 768)
+canvas.plot(graphicalplot)
+
+while True:
+    pass
