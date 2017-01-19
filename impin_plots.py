@@ -8,7 +8,6 @@ class pygame_impactplot:
         self.screen_width = screen_width
         self.fullscreen = False
         self.lane_padding_percentage = 0.25
-        self.space_between_lanes = 0.05
         self.title_font = "arial"
         self.title_font_color = (0, 0, 0)
         self.title_font_size = 24
@@ -24,7 +23,7 @@ class pygame_impactplot:
         self.box_text_font_color = (255,255,255)
         self.box_text_font_size = 12
         self.box_width_padding_percentage = 0.10
-        self.box_height_padding_percentage = 0.10
+        self.box_height_padding_percentage = 0.20
         self.bg_color = (255, 255, 255)
         self.bg_picture = None
 
@@ -37,6 +36,11 @@ class pygame_impactplot:
 
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
 
+        maximum_number_of_boxes_per_layer = 0
+        for l in canvas.layer.values():
+            maximum_number_of_boxes_per_layer = max(maximum_number_of_boxes_per_layer, len(l))
+
+
         for y, l in enumerate(canvas.layer.values()):
             lane_surface = pygame.surface.Surface((self.lane_width, self.lane_height))
             lane_surface.fill(self.lane_color)
@@ -46,7 +50,7 @@ class pygame_impactplot:
             screen.blit(lane_text_surface, (0, y*(self.lane_height*(1+self.lane_padding_percentage))))
 
             for x, b in enumerate(l):
-                box_width = self.lane_width/len(l)
+                box_width = (self.lane_width) / (maximum_number_of_boxes_per_layer + (self.box_width_padding_percentage * maximum_number_of_boxes_per_layer) + self.box_width_padding_percentage)
                 box_surface = pygame.surface.Surface((box_width, self.lane_height * (1 - self.box_height_padding_percentage)))
                 box_surface.fill(self.box_color)
                 screen.blit(box_surface, (self.box_width_padding_percentage*box_width + (x / len(l)) * self.lane_width * (1 + self.box_width_padding_percentage),
