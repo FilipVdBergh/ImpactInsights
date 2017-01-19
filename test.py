@@ -1,14 +1,14 @@
 import impin
 import impin_plots
 
-canvas = impin.canvas(layernames=("Impact", "Outcomes", "Results", "Activities", "Conditions"), title="Testplot")
+canvas = impin.canvas(layernames=("Impact", "Outcomes", "Results", "Activities"), title="Testplot")
 
-b1 = canvas.add_box("Impact",     "Goede cijfers halen")
-b2 = canvas.add_box("Outcomes",   "Stof snappen")
-b3 = canvas.add_box("Results",    "Opletten")
-b4 = canvas.add_box("Activities", "Goed uitleggen")
-b5 = canvas.add_box("Activities", "Naast de juf zitten")
-b6 = canvas.add_box("Activities", "Stil zijn")
+b1 = canvas.add_box("Impact",     "")
+b2 = canvas.add_box("Outcomes",   "Opdrachten op tijd afkrijgen")
+b3 = canvas.add_box("Outcomes",   "Aandachtvermogen ontwikkelt zich")
+b4 = canvas.add_box("Activities", "Thuis half uur op één ding concentreren")
+b5 = canvas.add_box("Activities", "Weekplanning in de klas maken")
+b6 = canvas.add_box("Activities", "")
 
 canvas.add_relationship(b2, b1)
 canvas.add_relationship(b3, b2)
