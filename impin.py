@@ -51,7 +51,7 @@ class canvas:
     def get_box_by_id(self, idno):
         for l in self.layer:
             for b in self.layer[l]:
-                if b.id == idno:
+                if b.id == int(idno):
                     return b
 
     def get_box_by_title(self, title):
