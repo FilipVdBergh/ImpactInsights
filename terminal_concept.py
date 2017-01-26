@@ -7,7 +7,7 @@ canvas = impin.canvas(layernames=("input", "throughput", "output"), title="Testp
 def parse(user_input):
     if " " in user_input:
         command = user_input.lower().split(" ",maxsplit=1)[0]
-        arguments = user_input.lower().split(" ",maxsplit=1)[1].split(";")
+        arguments = user_input.split(" ",maxsplit=1)[1].split(";")
     else:
         command = user_input
         arguments = []
@@ -15,17 +15,22 @@ def parse(user_input):
 
 textplot = impin_textplot.textplot()
 graphicalplot = impin_pygameplot.pygameplot(1080, 768)
-graphicalplot.bg_picture = 'smg.jpg'
 
 cont = True
 while cont:
-    command, arguments = parse(input("> "))
+    command, arguments = parse(input("%s > " % canvas.title))
     if command == "quit":
         cont = False
     elif command == "list" or command== "print":
         canvas.plot(textplot)
     elif command == "plot":
         canvas.plot(graphicalplot)
+    elif command == "export":
+        if len(arguments) < 1:
+            print("Usage: export [*/filename]")
+        else:
+            #canvas.plot(powerpointplot)
+            print("Not implemented yet")
     elif command == "add":
         if len(arguments) < 2:
             print("Usage: add;layer;title;[text]")
@@ -55,6 +60,7 @@ while cont:
     elif command == "layers":
         if len(arguments) < 1:
             print("Usage: layers l1;l2[;l3;...]")
+            print(canvas.layernames)
         else:
             canvas.layernames = arguments
             canvas.layer = {l: list() for l in range(len(canvas.layernames))}
@@ -63,5 +69,10 @@ while cont:
             print("Usage: bg background")
         else:
             graphicalplot.bg_picture = arguments[0]
+    elif command == "title":
+        if len(arguments) < 1:
+            print("Usage: title title")
+        else:
+            canvas.title = arguments[0]
     else:
         print("Command not recognized: ", command)

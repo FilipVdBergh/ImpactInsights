@@ -1,0 +1,1 @@
+C:\Users\FtB\AppData\Local\Programs\Python\Python35\python.exe terminal_concept.py
