@@ -14,6 +14,7 @@ class pygameplot:
         self.lane_font_color = (0, 0, 0)
         self.lane_font_size = 14
         self.lane_color = (255, 255, 255)
+        self.lane_alpha = 200
         self.box_title_font = "calibri"
         self.box_title_font_color = (255, 255, 255)
         self.box_title_font_size = 16
@@ -46,7 +47,7 @@ class pygameplot:
         for y, l in enumerate(canvas.layer.values()):
             lane_surface = pygame.surface.Surface((self.lane_width, self.lane_height))
             lane_surface.fill(self.lane_color)
-            lane_surface.set_alpha(200)
+            lane_surface.set_alpha(self.lane_alpha)
             f = pygame.font.SysFont(self.lane_font, self.lane_font_size)
             lane_text_surface = f.render(canvas.layernames[y], True, self.lane_font_color)
             lane_y = y*(self.lane_height*(1+self.lane_padding_percentage))

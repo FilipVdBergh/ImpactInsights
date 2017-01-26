@@ -1,6 +1,7 @@
 import impin
 import impin_pygameplot
 import impin_textplot
+import impin_powerpointplot
 
 canvas = impin.canvas(layernames=("Impact", "Outcomes", "Results", "Activities"), title="Testplot")
 
@@ -20,8 +21,11 @@ canvas.add_relationship(b5, b4)
 textplot = impin_textplot.textplot()
 canvas.plot(textplot)
 
-graphicalplot = impin_pygameplot.pygameplot(1080, 768)
-canvas.plot(graphicalplot)
+#graphicalplot = impin_pygameplot.pygameplot(1080, 768)
+#canvas.plot(graphicalplot)
 
-while True:
-    pass
+ppplot = impin_powerpointplot.powerpointplot()
+canvas.plot(ppplot)
+
+#while True:
+#    pass
