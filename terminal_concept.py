@@ -25,7 +25,7 @@ while cont:
         cont = False
     elif command == "save":
         if len(arguments) < 1:
-            print("Usage: save [*/filename]")
+            print("Saves a file. Usage: save [*/filename]")
         else:
             if arguments[0] == "*":
                 arguments[0] = canvas.title + ".ii"
@@ -36,7 +36,7 @@ while cont:
             print("Saved file %s" % arguments[0])
     elif command == "load":
         if len(arguments) < 1:
-            print("Usage: load filename")
+            print("Loads a file. Usage: load filename")
         else:
             if not ".ii" in arguments[0]:
                 arguments[0] += ".ii"
@@ -47,9 +47,9 @@ while cont:
         canvas.plot(impin_textplot.textplot())
     elif command == "plot":
         canvas.plot(impin_pygameplot.pygameplot(1080, 768))
-    elif command == "export":
+    elif command == "export" or command == "exp":
         if len(arguments) < 1:
-            print("Usage: export [*/filename]")
+            print("Exports a plot to Powerpoint. Usage: exp[ort] [*/filename]")
         else:
             ppplot = impin_powerpointplot.powerpointplot()
             if arguments[0] == "*":
@@ -66,7 +66,7 @@ while cont:
             pp.Visible = True
     elif command == "add":
         if len(arguments) < 2:
-            print("Usage: add;layer;title;[text]")
+            print("Adds a box. Usage: add;layer;title;[text]")
         else:
             if len(arguments) == 2:
                 box = canvas.add_box(arguments[0], arguments[1], "None")
@@ -75,7 +75,7 @@ while cont:
             print("Added box %s (Id %s)" % (box.title, box.id))
     elif command == "connect" or command == "con":
         if len(arguments) < 2:
-            print("Usage: con[nect] id0;id1")
+            print("Connects two boxes. Usage: con[nect] id0;id1")
         elif len(arguments) == 2:
             box1 = canvas.get_box_by_id(arguments[0])
             box2 = canvas.get_box_by_id(arguments[1])
@@ -83,14 +83,14 @@ while cont:
             print("Added connection from %s to %s" % (box1.title, box2.title))
     elif command == "del":
         if len(arguments) < 1:
-            print("Usage: del id")
+            print("Deletes a box or a connection. Usage: del id")
         elif len(arguments) == 1:
             box = canvas.get_box_by_id(arguments[0])
             print("Deleted box %s (Id %s)" % (box.title, box.id))
             canvas.delete_box(box)
     elif command == "?":
         if len(arguments) < 1:
-            print("Usage: ? id/title")
+            print("Get box or connection information. Usage: ? id/title")
             canvas.plot(impin_textplot.textplot())
         elif len(arguments) == 1:
             if arguments[0].isdigit():
@@ -98,16 +98,16 @@ while cont:
             else:
                 box = canvas.get_box_by_title(arguments[0])
             print("%s, %s (%s)"%(box.id, box.title, box.text))
-    elif command == "layers" or command == "layer":
+    elif command == "layers" or command == "lay":
         if len(arguments) < 1:
-            print("Usage: layers l1;l2[;l3;...]")
+            print("Change layer names. May orphan boxes or relationships. Usage: lay[ers] l1;l2[;l3;...]")
             print(canvas.layernames)
         else:
             canvas.layernames = arguments
             canvas.layer = {l: list() for l in range(len(canvas.layernames))}
     elif command == "title":
         if len(arguments) < 1:
-            print("Usage: title title")
+            print("Changes plot title. Usage: title title")
         else:
             canvas.title = arguments[0]
     else:
