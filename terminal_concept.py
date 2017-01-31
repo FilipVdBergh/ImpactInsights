@@ -49,13 +49,18 @@ while cont:
         canvas.plot(impin_pygameplot.pygameplot(1080, 768))
     elif command == "export" or command == "exp":
         if len(arguments) < 1:
-            print("Exports a plot to Powerpoint. Usage: exp[ort] [*/filename]")
+            print("Exports a plot to Powerpoint. Usage: exp[ort] */filename;backgroundpicture")
         else:
             ppplot = impin_powerpointplot.powerpointplot()
             if arguments[0] == "*":
                 arguments[0] = canvas.title + ".pptx"
             if not ".pptx" in arguments[0]:
                 arguments[0] += ".pptx"
+            if len(arguments) > 1:
+                try:
+                    ppplot.bg_picture = arguments[1]
+                except:
+                    ppplot.bg_picture = None
             ppplot.filename = arguments[0]
             canvas.plot(ppplot)
             print("Saving " + ppplot.filename)
@@ -81,7 +86,7 @@ while cont:
             box2 = canvas.get_box_by_id(arguments[1])
             canvas.add_relationship(box1, box2)
             print("Added connection from %s to %s" % (box1.title, box2.title))
-    elif command == "del":
+    elif command == "del" or command == "delete":
         if len(arguments) < 1:
             print("Deletes a box or a connection. Usage: del id")
         elif len(arguments) == 1:
